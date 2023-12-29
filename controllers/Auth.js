@@ -5,19 +5,23 @@ const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
   try {
+    const docs = await User.findOne({ email: req.body.email });
+    if (docs.length >= 1) {
+      return res.status(400).json({ message: "user exists" });
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const result = await User.create({
       ...req.body,
       password: hashedPassword,
     });
     let token = await jwt.sign({ id: result.id }, process.env.SECRETE_KEY);
-    let minute = 60 * 1000;
+    let minute = 90071992547409;
     // res.cookie("token", token, { maxAge: minute });
     // return res.status(200).json(docs);
     return res
-        .status(201)
-        .cookie("token", token, { maxAge: minute })
-        .json(result);
+      .status(201)
+      .cookie("token", token, { maxAge: minute })
+      .json(result);
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);
@@ -30,7 +34,7 @@ const loginUser = async (req, res) => {
     const verify = await bcrypt.compare(req.body.password, docs.password);
     if (verify) {
       let token = await jwt.sign({ id: docs.id }, process.env.SECRETE_KEY);
-      let minute = 60 * 1000;
+      let minute = 90071992547409;
       return res
         .status(200)
         .cookie("token", token, { maxAge: minute })
@@ -44,9 +48,9 @@ const loginUser = async (req, res) => {
 };
 
 const getUserFromToken = async (req, res) => {
-  const cookieValue = req.cookies.token;
-  // const cookieValue =
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGRkMDVmM2YwYzg1YWZjNTUwYmFlOSIsImlhdCI6MTcwMzc5MjgxOX0.q2qDkiAQBRyvkiy38jXEbTDjPrvX5ur43fEe09FWvAA";
+  let cookieValue = req.cookies.token;
+  // cookieValue =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGYyZGU1OTlkYjZiN2ZkNTNiZDExNSIsImlhdCI6MTcwMzg4NTEwMX0.yGxCrJjCrhkBl1WeyLLMacyBoT6YyhXpWtUmZ90mz0k";
   if (cookieValue) {
     const result = jwt.decode(cookieValue, process.env.SECRETE_KEY);
     const docs = await User.findById(result.id);
