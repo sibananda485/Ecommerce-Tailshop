@@ -56,7 +56,7 @@ const updateProductById = async (req, res) => {
     const docs = await Product.findByIdAndUpdate(req.params.id,req.body,{new:true});
     res.status(201).json(docs);
   } catch (error) {
-    res.json(400).json(error);
+    res.status(400).json(error);
   }
 };
 
