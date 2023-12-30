@@ -53,7 +53,7 @@ const getProductById = async (req, res) => {
 
 const updateProductById = async (req, res) => {
   try {
-    const docs = await Product.findByIdAndUpdate(req.params.id,req.body,{new:true});
+    const docs = await Product.findByIdAndUpdate(req.params.id,{...req.body,price:+req.body.price},{new:true});
     res.status(201).json(docs);
   } catch (error) {
     res.status(400).json(error);
