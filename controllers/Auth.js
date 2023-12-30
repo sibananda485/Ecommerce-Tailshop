@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const createUser = async (req, res) => {
   try {
     const docs = await User.findOne({ email: req.body.email });
-    if (docs.length >= 1) {
+    if (docs?.length >= 1) {
       return res.status(400).json({ message: "user exists" });
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
