@@ -1,7 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const process.env.SECRETE_KEY = "siba";
 
 const createUser = async (req, res) => {
   try {
@@ -16,8 +15,6 @@ const createUser = async (req, res) => {
     });
     let token = await jwt.sign({ id: result.id }, process.env.SECRETE_KEY);
     let minute = 90071992547409;
-    // res.cookie("token", token, { maxAge: minute });
-    // return res.status(200).json(docs);
     return res
       .status(201)
       .cookie("token", token, { maxAge: minute })
@@ -50,7 +47,7 @@ const loginUser = async (req, res) => {
 const getUserFromToken = async (req, res) => {
   let cookieValue = req.cookies.token;
   // cookieValue =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGYyZGU1OTlkYjZiN2ZkNTNiZDExNSIsImlhdCI6MTcwMzkzOTA4M30._WC3bAKe7eTobGYQyjStG24i2Dg9zHmxIg3FXvjpYFw";
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OTAyOTYzYmM2Y2QxY2NiYjg3NTliMCIsImlhdCI6MTcwNDU0MTQwN30.g5sQYzKkkiY8vF5nj3_6xGL6YWpnxewQ6sDwEcsp5tk";
   if (cookieValue) {
     const result = jwt.decode(cookieValue, process.env.SECRETE_KEY);
     const docs = await User.findById(result.id);
