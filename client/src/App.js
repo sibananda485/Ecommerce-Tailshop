@@ -32,6 +32,7 @@ import AdminOrderPage from "./Pages/AdminOrderPage";
 import About from "./Pages/About";
 import Navbar from "./features/Navbar/Navbar";
 import Loader from "./features/common/Loader";
+import toast, { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -156,6 +157,7 @@ function App() {
   const userInfo = useSelector(selectUserInfo);
   useEffect(() => {
     if (user) {
+      toast.success('Logged-in sucessfully!')
       dispatch(getCartItemsByUserIdAsync());
       dispatch(fetchLoggedInUserAsync());
     }
@@ -165,6 +167,8 @@ function App() {
   }, []);
   return (
     <>
+    <Toaster />
+
       {loader ? (
         user && !userInfo ? (
           <Loader></Loader>

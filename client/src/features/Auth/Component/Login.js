@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { selectLoggedInUser, checkUserAsync, selectError } from "../authSlice";
 import Logo1 from "../../../assets/Logo1.png"
 import Logo2 from "../../../assets/Logo2.png"
+import { useEffect } from "react";
 
 export default function Login() {
   const {
@@ -19,6 +20,8 @@ export default function Login() {
   const submitFunction = (data) => {
     dispatch(checkUserAsync(data));
   };
+
+
 
   return (
     <>

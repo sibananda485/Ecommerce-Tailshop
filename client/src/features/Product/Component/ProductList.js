@@ -82,7 +82,6 @@ export function ProductList() {
       setFilterObj(k);
     }
   };
-  console.log(status);
   const handleSort = (sortOptions) => {
     dispatch(
       fetchProductByFilterAsync({

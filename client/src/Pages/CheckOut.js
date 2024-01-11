@@ -14,6 +14,7 @@ import {
   selectCurrentOrder,
 } from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
+import { toast } from "react-hot-toast";
 
 export default function CheckOut() {
   const {
@@ -69,7 +70,7 @@ export default function CheckOut() {
         })
       );
     } else {
-      alert("Choose an address");
+      toast.error("Choose an address")
     }
   };
 
@@ -81,6 +82,9 @@ export default function CheckOut() {
 
   const handleRemove = (id) => {
     dispatch(deleteCartItemAsync(id));
+    toast('Item removed', {
+      icon: '⛔',
+    });
   };
 
   return (
@@ -96,6 +100,7 @@ export default function CheckOut() {
             onSubmit={handleSubmit((data) => {
               const update = {address: [...user.address, data] };
               dispatch(updateUserAsync(update));
+              toast.success('Address added')
               reset();
             })}
           >

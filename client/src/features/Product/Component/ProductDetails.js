@@ -9,6 +9,7 @@ import {
   updateCartAsync,
 } from "../../Cart/CartSlice";
 import Skeleton from "react-loading-skeleton";
+import toast, { Toaster } from 'react-hot-toast';
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -38,9 +39,11 @@ export default function ProductDetails() {
           id: cartItems[index].id,
           data: { quantity: +cartItems[index].quantity + 1 },
         })
-      );
+        );
+        toast.success('quantity updated in cart')
     } else {
       dispatch(addToCartAsync({ product: product.id, quantity: 1 }));
+      toast.success('Added to cart')
     }
   };
 
@@ -52,7 +55,6 @@ export default function ProductDetails() {
       setLoading(false);
     };
     callApi();
-    console.log("useeffecr");
   }, [id]);
   return (
     <div className="bg-white">

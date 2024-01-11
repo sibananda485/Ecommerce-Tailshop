@@ -5,6 +5,7 @@ import {
   updateCartAsync,
 } from "./CartSlice";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function Cart() {
   const cartItems = useSelector(selectCartItems);
@@ -25,6 +26,9 @@ export function Cart() {
 
   const handleRemove = (id) => {
     dispatch(deleteCartItemAsync(id));
+    toast('Item removed', {
+      icon: '⛔',
+    });
   };
 
   return (

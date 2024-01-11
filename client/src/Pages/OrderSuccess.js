@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyCurrentOrder } from "../features/order/orderSlice";
 import { resetCartAsync } from "../features/Cart/CartSlice";
 import { selectLoggedInUser } from "../features/Auth/authSlice";
+import { toast } from "react-hot-toast";
 
 export default function OrderSuccess() {
   const params = useParams();
   const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   useEffect(() => {
+    toast.success('Order Successfully placed')
     dispatch(resetCartAsync(user.id));
     dispatch(emptyCurrentOrder());
   }, [user.id,dispatch]);
