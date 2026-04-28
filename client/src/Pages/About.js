@@ -14,7 +14,9 @@ export default function About() {
 
         <h1 className="text-2xl font-">Designed and Developed by</h1>
 
-        <div className="my-5 "> <img src={Profile} className="w-20 rounded-md ml-5" alt="" /> <h2 className="text-2xl my-2 " >Sibananda sahu</h2></div>
+        <div className="my-5 ">
+           {/* <img src={Profile} className="w-20 rounded-md ml-5" alt="" /> */}
+         <h2 className="text-2xl my-2 " >Sibananda sahu</h2></div>
         <h3>Fullstack MERN Developer</h3>
 
         <p className="my-6">
